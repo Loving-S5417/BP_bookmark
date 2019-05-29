@@ -1,0 +1,78 @@
+{% extends 'base.html' %} 																{# 부모 템플릿인 'base.html' 템플릿을 상속 #}
+
+{% block title %}북마크 목록{% endblock %}
+
+{% block content %} 																	{# 부모 템플릿에 정의된 {% block %} 템플릿 태그를 자식 템플릿에서 재정의. (부모가 정의한 block에 한해서만 재정의 가능.)		#}
+																						{# <<<	템플릿의 공통사항을 가능한 한 많이 뽑아서 1단계 부모 템플릿에 {% block %} 태그가 많아질수록 좋다. 					#}
+																						{# 		부모 템플릿의 {% block %} 안에 있는 내용도 사용하고 싶다면, 자식 템플릿에 {{ block.super }} 변수를 사용하면 된다. 	#}
+<div class="btn-group">
+	<a href="{% url 'bookmark:add' %}" class="btn btn-info">북마크 추가</a>
+</div>
+<p></p>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Site</th>
+			<th scope="col">URL</th>
+			<th scope="col">Modify</th>
+			<th scope="col">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for bm in object_list %} 									{# object_list : 제네릭 뷰[BookmarkListView]에서 전달받은 디폴트 context변수. 	#}
+			<tr>
+				<td class="{{ forloop.counter }}">{{ bm.id }}</td>		{# forloop.counter : 현재까지 루프를 실행한 루프 카운트(1부터 카운트함) 		#}
+				<td>
+					<a href="{% url 'bookmark:dtl' pk=bm.id %}">{{bm.site_name}}</a>
+				</td>
+				<td>
+					<a href="{{bm.url}}" target="_blank">{{bm.url}}</a>
+				</td>
+				<td>
+					<a href="{% url 'bookmark:mod' pk=bm.id %}" class="btn btn-success btn-sm">Modify</a>
+				</td>
+				<td>
+					<a href="{% url 'bookmark:del' pk=bm.id %}" class="btn btn-danger btn-sm">Delete</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock %}
+
+<!--------------------------------------------------------------- pagination[시작] --------------------------------------------------------------->
+{% block pagination %}
+	{% if is_paginated %}
+		<ul class="pagination justify-content-center pagination-sm">
+			{% if page_obj.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="{% url 'bookmark:list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" href="#" tabindex="-1">Previous</a>
+				</li>
+			{% endif %}
+
+			{% for object in page_obj.paginator.page_range %}
+				<li class="page-item {% if page_obj.number == forloop.counter %}disabled{% endif %}">
+					<a class="page-link" href="{{ request.path }}?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+				</li>
+			{% endfor %}
+
+			{% if page_obj.has_next %}
+				<li class="page-item">
+					<a class="page-link" href="{% url 'bookmark:list' %}?page={{ page_obj.next_page_number }}">Next</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			{% endif %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<!--------------------------------------------------------------- pagination[종료] --------------------------------------------------------------->

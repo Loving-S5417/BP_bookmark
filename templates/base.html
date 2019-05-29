@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}{% endblock %}</title>
+	<!-- ------------------------------------------------------ 부트스트랩 적용[시작] ------------------------------------------------------ 
+		cf. https://getbootstrap.com/docs/4.3/getting-started/introduction/																	-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<!-- ------------------------------------------------------ 부트스트랩 적용[종료] ------------------------------------------------------ -->
+
+	<!-- -------------------------------------------------- 사용자정의 정적파일 적용[시작] -------------------------------------------------- -->
+	{% load static %}												{# "{% load static %}" 탬플릿 태그 : static라는 정적폴더 로딩.(해당 폴더 위치는 settings.py 안에, STATICFILES_DIRS 변수로 정의해야 한다.)	#}
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" />  	{# cf. D:\Study\Python\Web\Django\01_RedBook\venv\Lib\site-packages\django\contrib\admin\static\admin\css\base.css 					#}	
+	<!-- -------------------------------------------------- 사용자정의 정적파일 적용[종료] -------------------------------------------------- -->
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Djang 북마크</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<p></p>
+		<div class="row">
+			<div class="col">	
+				{% block content %}
+				{% endblock %}
+
+				<!-- pagination[시작] -->
+				{% block pagination %}
+				{% endblock %}
+				<!-- pagination[종료] -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

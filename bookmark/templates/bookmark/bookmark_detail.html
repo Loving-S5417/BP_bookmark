@@ -1,0 +1,13 @@
+{% extends 'base.html' %} 																{# 부모 템플릿인 'base.html' 템플릿을 상속 #}
+
+{% block title %}북마크 상세보기{% endblock %}
+
+{% block content %} 																	{# 부모 템플릿에 정의된 {% block %} 템플릿 태그를 자식 템플릿에서 재정의. (부모가 정의한 block에 한해서만 재정의 가능.)		#}
+																						{# <<<	템플릿의 공통사항을 가능한 한 많이 뽑아서 1단계 부모 템플릿에 {% block %} 태그가 많아질수록 좋다. 					#}
+																						{# 		부모 템플릿의 {% block %} 안에 있는 내용도 사용하고 싶다면, 자식 템플릿에 {{ block.super }} 변수를 사용하면 된다. 	#}
+
+{{ object.site_name }}<br/> 							{# "object"라는 context변수를 뷰에서 전달받아서, 그 안에 들어 있는 site_name 칼럼값을 출력.	#}
+{{ object.url }} 										{# "object"라는 context변수를 뷰에서 전달받아서, 그 안에 들어 있는 url 칼럼값을 출력.		#}
+
+
+{% endblock %}
