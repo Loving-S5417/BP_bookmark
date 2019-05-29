@@ -125,4 +125,5 @@ USE_TZ = False              # USE_TZ = True라고 설정하면 Django가 알아�
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]       # == b_bookmark/static   <<<   cf. 129페이지
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]     # == b_bookmark/static   <<<   cf. 129페이지
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')        # == b_bookmark/static ??????????????????  <<<   cf. 165페이지
